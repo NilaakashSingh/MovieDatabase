@@ -62,8 +62,14 @@ struct MovieDetailsView: View {
     
     private var sourceBody: some View {
         VStack(alignment: .leading) {
+            HStack(alignment: .top) {
+                genreView
+                languageView
+            }
+            
             if let averageVote = viewModel.movieDetails?.voteAverage {
                 Text("IMDB Rating: \(String(format: "%.1f", averageVote))")
+                    .padding(.top, 20)
             }
             
             HStack(alignment: .top) {
@@ -79,7 +85,49 @@ struct MovieDetailsView: View {
         }
         .padding([.top, .bottom])
     }
+}
+
+// MARK: - Supporting Views
+extension MovieDetailsView {
+    private var genreView: some View {
+        VStack {
+            if let genreArray = viewModel.movieDetails?.genres {
+                coloredTitle(title: "Genre")
+                ForEach(genreArray, id: \.self) { genre in
+                    coloredSubtitle(subtitle: genre.name ?? .empty)
+                }
+            }
+        }
+    }
     
+    private var languageView: some View {
+        VStack {
+            if let languageAvailableArray = viewModel.movieDetails?.spokenLanguages {
+                coloredTitle(title: "Available in")
+                ForEach(languageAvailableArray, id: \.self) { languageAvailable in
+                    coloredSubtitle(subtitle: languageAvailable.englishName ?? .empty)
+                }
+            }
+        }
+    }
+    
+    private func coloredTitle(title: String) -> some View {
+        Text(title)
+            .font(.title3)
+    }
+    
+    private func coloredSubtitle(subtitle: String) -> some View {
+        Text(subtitle)
+            .font(.body)
+            .padding()
+            .frame(width: UIScreen.main.bounds.width / 2 - 30)
+            .background(Color.random())
+            .cornerRadius(5)
+    }
+}
+
+// MARK: - Action Method
+extension MovieDetailsView {
     private func openURL(urlString: String?) {
         if let url = URL(string: urlString ?? .empty) {
             UIApplication.shared.open(url)

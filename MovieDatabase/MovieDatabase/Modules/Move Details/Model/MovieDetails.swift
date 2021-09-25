@@ -8,7 +8,7 @@
 import ObjectMapper
 
 // MARK: - Movie Details
-struct MovieDetails: Mappable {
+struct MovieDetails: Mappable, Hashable {
     var adult: Bool?
     var genres: [Genre]?
     var homepage: String?
@@ -46,7 +46,7 @@ struct MovieDetails: Mappable {
 }
 
 // MARK: - Genre
-struct Genre: Mappable {
+struct Genre: Mappable, Hashable {
     var id: Int?
     var name: String?
     
@@ -60,7 +60,7 @@ struct Genre: Mappable {
 }
 
 // MARK: - SpokenLanguage
-struct SpokenLanguage: Codable {
+struct SpokenLanguage: Mappable, Hashable {
     var englishName: String?
 
     init?(map: Map) {}
