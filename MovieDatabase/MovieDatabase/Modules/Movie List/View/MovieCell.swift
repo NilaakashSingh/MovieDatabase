@@ -18,26 +18,31 @@ struct MovieCell: View {
     private struct LayoutConstants {
         static let imageWidth: CGFloat = 100
         static let imageHeight: CGFloat = 200
-        static let topPadding: CGFloat = 30
+        static let topPadding: CGFloat = 20
+        static let cornerRadius: CGFloat = 20
+        static let imagePaddingFactor: CGFloat = 30
+        static let shadowRadius: CGFloat = 2
     }
     
     // MARK: - Movie Cell Body
     var body: some View {
-        HStack(alignment: .top) {
+        VStack(alignment: .leading) {
             if let url = URL(string: imageUrl ?? .empty)  {
                 KFImage(url)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: LayoutConstants.imageWidth,
-                           height: LayoutConstants.imageHeight,
-                           alignment: .center)
+                    .frame(width:  UIScreen.main.bounds.width - LayoutConstants.imagePaddingFactor)
+                    .cornerRadius(LayoutConstants.cornerRadius)
+                    .shadow(color: Color.blue, radius: LayoutConstants.shadowRadius)
+                    
             }
             
             VStack(alignment: .leading) {
                 Text(title ?? .empty)
                     .font(.largeTitle)
+                    .multilineTextAlignment(.leading)
                 
-                Text("Average Rating: \(String(format: "%.1f", averageRating ?? .zero))")
+                Text("IMDB Rating: \(String(format: "%.1f", averageRating ?? .zero))")
                     .font(.title2)
                     .foregroundColor(Color.yellow)
             }

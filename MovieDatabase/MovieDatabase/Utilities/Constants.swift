@@ -12,12 +12,13 @@ struct NetworkLink {
     private static let apiHost = "api.themoviedb.org"
     private static let scheme = "https"
     private static let imageHost = "image.tmdb.org/t/p/w500"
+    private static let genericPath = "/3/movie/"
     
-    static var movieListUrlComponent: URLComponents {
+    static func movieListUrlComponent() -> URLComponents {
         var components = URLComponents()
         components.scheme = scheme
         components.host = apiHost
-        components.path = "/3/movie/popular"
+        components.path = "\(genericPath)popular"
         components.setQueryItems(with: ["api_key": "\(NetworkLink.accessToken)"])
         return components
     }
@@ -28,5 +29,14 @@ struct NetworkLink {
         components.host = imageHost
         components.path = "\(string)"
         return components.string?.removingPercentEncoding
+    }
+    
+    static func movieDetailsUrlComponent(for movieID: String) -> URLComponents {
+        var components = URLComponents()
+        components.scheme = scheme
+        components.host = apiHost
+        components.path = "\(genericPath)\(movieID)"
+        components.setQueryItems(with: ["api_key": "\(NetworkLink.accessToken)"])
+        return components
     }
 }

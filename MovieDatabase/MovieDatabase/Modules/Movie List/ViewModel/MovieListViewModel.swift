@@ -7,19 +7,18 @@
 
 import Foundation
 import Combine
-import ObjectMapper
 
 class MovieListViewModel: ObservableObject {
     // MARK: - Variables
     @Published private(set) var movieArray = [Movie]()
-    @Published private(set) var isLoading = false
+    @Published private(set) var showLoadingIndicator = false
     private let movieListService = MovieListService()
     
     // MARK: - API Method
     @MainActor
     func fetchMovieList() async throws {
-        isLoading = true
-        defer { isLoading = true }
+        showLoadingIndicator = true
+        defer { showLoadingIndicator = false }
         movieArray = try await movieListService.loadMovieList()
         if movieArray.count > 10 {
             movieArray.removeSubrange(10...)
@@ -28,8 +27,7 @@ class MovieListViewModel: ObservableObject {
 }
 
 private actor MovieListService {
-    private var movieArray = [Movie]()
-    private var url = NetworkLink.movieListUrlComponent.url
+    private var url = NetworkLink.movieListUrlComponent().url
     
     func loadMovieList() async throws -> [Movie] {
         guard let url = self.url else { return [] }
