@@ -1,5 +1,5 @@
 # MovieDatabase
-Demo Movie Repo made in SwiftUI, SwiftAsync, MVVM with Alamofire, ObjectMapper covering the concept of continuations
+Demo Movie Repo made in SwiftUI, SwiftAsync, MVVM with Alamofire, ObjectMapper covering the concept of continuations.
 
 ### Steps to run the app.
 1. Visit https://www.themoviedb.org and get access token.
