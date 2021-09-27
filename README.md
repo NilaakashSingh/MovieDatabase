@@ -1,7 +1,7 @@
 # MovieDatabase
-Demo Movie Repo made in SwiftUI, SwiftAsync, MVVM with Alamofire, ObjectMapper covering the concept of continuations.
+Demo Movie Repo made in SwiftUI, SwiftAsync, MVVM including 3rd party SDK (i.e Alamofire, ObjectMapper) covering the concept of continuations.
 
-### Steps to run the app.
+### Requirement.
 Xcode 13, Swift 5.
 
 ### Steps to run the app.
